@@ -9,9 +9,9 @@ import utils.utils
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='C:\\Users\\Koren\\Git\\Yolo-FastestV2\\data\\armour.data', 
+    parser.add_argument('--data', type=str, default='.\\data\\armour.data', 
                         help='Specify training profile *.data')
-    parser.add_argument('--weights', type=str, default='C:\\Users\\Koren\\Git\\Yolo-FastestV2\\modelzoo\\armour-model.pth', 
+    parser.add_argument('--weights', type=str, default='.\\weights\\armour-100-epoch-0.771161ap-model.pth', 
                         help='The path of the .pth model to be transformed')
     
     opt = parser.parse_args()
@@ -24,9 +24,9 @@ if __name__ == '__main__':
 
     #加载label names
     LABEL_NAMES = []
-    with open(cfg["names"], 'r') as f:
+    with open(cfg["names"], 'r', encoding='utf-8') as f:
         for line in f.readlines():
-            LABEL_NAMES.append(line.strip())
+            LABEL_NAMES.append(line.split('	')[0].strip())
             
     capture = cv2.VideoCapture(0)
     
@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
         # 从摄像头读取帧
         ret, ori_img = capture.read()
-        cv2.imshow('Camera', ori_img)
+        # cv2.imshow('Camera', ori_img)
 
         #数据预处理
         res_img = cv2.resize(ori_img, (cfg["width"], cfg["height"]), interpolation = cv2.INTER_LINEAR) 
@@ -70,7 +70,7 @@ if __name__ == '__main__':
         cv2.imshow("test_result", ori_img)
 
         end = time.perf_counter()
-        print("forward time:%fms"%((end - start) * 1000.))
+        print("time:%fms"%((end - start) * 1000.))
 
         # 按'q'退出循环
         if cv2.waitKey(1) & 0xFF == ord('q'):

@@ -103,7 +103,7 @@ def kmeans(X,centroids,eps,anchor_file, width_in_cfg_file, height_in_cfg_file):
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--traintxt', default = 'C:\\Users\\Koren\\Git\\Yolo-FastestV2\\dataset\\train.txt', 
+    parser.add_argument('--traintxt', default = '.\\dataset\\train.txt', 
                         help='path to traintxt\n' )
     parser.add_argument('--output_dir', default = './', type = str, 
                         help='Output anchor directory\n' )  

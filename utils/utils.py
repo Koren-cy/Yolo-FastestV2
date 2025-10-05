@@ -323,7 +323,7 @@ def handel_preds(preds, cfg, device):
 
             c = c.permute(1, 2, 0)
             c = c.reshape(c.shape[0],c.shape[1], 1, c.shape[2])
-            c = c.repeat(1, 1, 3, 1)
+            c = c.repeat(1, 1, cfg["anchor_num"], 1)
 
             anchor_boxes = torch.zeros(r.shape[0], r.shape[1], r.shape[2], r.shape[3] + c.shape[3] + 1)
 

@@ -7,9 +7,9 @@ import utils.utils
 if __name__ == '__main__':
     #指定训练配置文件
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='', 
+    parser.add_argument('--data', type=str, default='.\\data\\armour.data', 
                         help='Specify training profile *.data')
-    parser.add_argument('--weights', type=str, default='', 
+    parser.add_argument('--weights', type=str, default='.\\weights\\armour-20-epoch-0.768182ap-model.pth', 
                         help='The path of the .pth model to be transformed')
 
     parser.add_argument('--output', type=str, default='./model.onnx', 

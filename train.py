@@ -17,7 +17,7 @@ import model.detector
 if __name__ == '__main__':
     # 指定训练配置文件
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='C:\\Users\\Koren\\Git\\Yolo-FastestV2\\data\\armour.data',
+    parser.add_argument('--data', type=str, default='.\\data\\armour.data',
                         help='Specify training profile *.data')
     
     opt = parser.parse_args()
@@ -40,6 +40,7 @@ if __name__ == '__main__':
                                                    drop_last=True,
                                                    persistent_workers=True
                                                    )
+                                                   
     val_dataloader = torch.utils.data.DataLoader(val_dataset,
                                                  batch_size=batch_size,
                                                  shuffle=False,
@@ -57,17 +58,16 @@ if __name__ == '__main__':
     model = model.detector.Detector(cfg["classes"], cfg["anchor_num"], False).to(device)
     summary(model, input_size=(3, cfg["height"], cfg["width"]))
 
-    # 构建SGD优化器
-    optimizer = optim.SGD(params=model.parameters(),
+    # 构建AdamW优化器
+    optimizer = optim.AdamW(params=model.parameters(),
                           lr=cfg["learning_rate"],
-                          momentum=0.949,
-                          weight_decay=0.0005,
+                          weight_decay=0.0002,
                           )
 
     # 学习率衰减策略
     scheduler = optim.lr_scheduler.MultiStepLR(optimizer,
                                                milestones=cfg["steps"],
-                                               gamma=0.1)
+                                               gamma=0.316227766016838)
 
     print('Starting training for %g epochs...' % cfg["epochs"])
 

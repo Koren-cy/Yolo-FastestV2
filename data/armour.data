@@ -2,8 +2,8 @@
 model_name=armour
 
 [train-configure]
-epochs=300
-steps=150,250
+epochs=1200
+steps=75,150,225,300,375,450,525,600,675,750,825,900,950,1000,1050,1100
 batch_size=16
 subdivisions=1
 learning_rate=0.001
