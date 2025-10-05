@@ -1,0 +1,39 @@
+{
+  "version": "3.2.6",
+  "flags": {},
+  "shapes": [
+    {
+      "label": "B3\t蓝方三号装甲板",
+      "score": null,
+      "points": [
+        [
+          283.8461538461538,
+          104.6923076923077
+        ],
+        [
+          436.9230769230769,
+          104.6923076923077
+        ],
+        [
+          436.9230769230769,
+          261.6153846153846
+        ],
+        [
+          283.8461538461538,
+          261.6153846153846
+        ]
+      ],
+      "group_id": null,
+      "description": "",
+      "difficult": false,
+      "shape_type": "rectangle",
+      "flags": {},
+      "attributes": {},
+      "kie_linking": []
+    }
+  ],
+  "imagePath": "21413.jpg",
+  "imageData": null,
+  "imageHeight": 384,
+  "imageWidth": 640
+}

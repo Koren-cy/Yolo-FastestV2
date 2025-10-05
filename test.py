@@ -9,9 +9,9 @@ import utils.utils
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='C:\\Users\\Koren\\Git\\Yolo-FastestV2\\data\\coco.data', 
+    parser.add_argument('--data', type=str, default='C:\\Users\\Koren\\Git\\Yolo-FastestV2\\data\\armour.data', 
                         help='Specify training profile *.data')
-    parser.add_argument('--weights', type=str, default='C:\\Users\\Koren\\Git\\Yolo-FastestV2\\modelzoo\\coco2017-0.241078ap-model.pth', 
+    parser.add_argument('--weights', type=str, default='C:\\Users\\Koren\\Git\\Yolo-FastestV2\\modelzoo\\armour-model.pth', 
                         help='The path of the .pth model to be transformed')
     
     opt = parser.parse_args()

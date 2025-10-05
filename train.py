@@ -1,15 +1,10 @@
 import os
 import math
-import time
 import argparse
-import numpy as np
 from tqdm import tqdm
-from numpy.testing._private.utils import print_assert_equal
 
 import torch
 from torch import optim
-from torch.utils.data import dataset
-from numpy.core.fromnumeric import shape
 
 from torchsummary import summary
 
@@ -22,13 +17,12 @@ import model.detector
 if __name__ == '__main__':
     # 指定训练配置文件
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='',
+    parser.add_argument('--data', type=str, default='C:\\Users\\Koren\\Git\\Yolo-FastestV2\\data\\armour.data',
                         help='Specify training profile *.data')
+    
     opt = parser.parse_args()
+    
     cfg = utils.utils.load_datafile(opt.data)
-
-    print("训练配置:")
-    print(cfg)
 
     # 数据集加载
     train_dataset = utils.datasets.TensorDataset(cfg["train"], cfg["width"], cfg["height"], imgaug = True)
@@ -36,7 +30,7 @@ if __name__ == '__main__':
 
     batch_size = int(cfg["batch_size"] / cfg["subdivisions"])
     nw = min([os.cpu_count(), batch_size if batch_size > 1 else 0, 8])
-    # 训练集
+
     train_dataloader = torch.utils.data.DataLoader(train_dataset,
                                                    batch_size=batch_size,
                                                    shuffle=True,
@@ -46,7 +40,6 @@ if __name__ == '__main__':
                                                    drop_last=True,
                                                    persistent_workers=True
                                                    )
-    #验证集
     val_dataloader = torch.utils.data.DataLoader(val_dataset,
                                                  batch_size=batch_size,
                                                  shuffle=False,
@@ -60,22 +53,9 @@ if __name__ == '__main__':
     # 指定后端设备CUDA&CPU
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-    # 判断是否加载预训练模型
-    load_param = False
-    premodel_path = cfg["pre_weights"]
-    if premodel_path != None and os.path.exists(premodel_path):
-        load_param = True
-
     # 初始化模型结构
     model = model.detector.Detector(cfg["classes"], cfg["anchor_num"], load_param).to(device)
     summary(model, input_size=(3, cfg["height"], cfg["width"]))
-
-    # 加载预训练模型参数
-    if load_param == True:
-        model.load_state_dict(torch.load(premodel_path, map_location=device), strict = False)
-        print("Load finefune model param: %s" % premodel_path)
-    else:
-        print("Initialize weights: model/backbone/backbone.pth")
 
     # 构建SGD优化器
     optimizer = optim.SGD(params=model.parameters(),

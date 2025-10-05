@@ -1,0 +1,22 @@
+[name]
+model_name=armour
+
+[train-configure]
+epochs=300
+steps=150,250
+batch_size=128
+subdivisions=1
+learning_rate=0.001
+
+[model-configure]
+pre_weights=None
+classes=14
+width=1280
+height=800
+anchor_num=3
+anchors=12.64,19.39, 37.88,51.48, 55.71,138.31, 126.91,78.23, 131.57,214.55, 279.92,258.87
+
+[data-configure]
+train=./dataset/train.txt
+val=./dataset/val.txt
+names=./data/armour.names
