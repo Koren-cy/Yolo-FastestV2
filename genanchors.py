@@ -92,7 +92,7 @@ def kmeans(X,centroids,eps,anchor_file, width_in_cfg_file, height_in_cfg_file):
             return
 
         #calculate new centroids
-        centroid_sums=np.zeros((k,dim),np.float)
+        centroid_sums=np.zeros((k,dim),dtype=float)
         for i in range(N):
             centroid_sums[assignments[i]]+=X[i]        
         for j in range(k):            
@@ -103,17 +103,17 @@ def kmeans(X,centroids,eps,anchor_file, width_in_cfg_file, height_in_cfg_file):
 
 def main(argv):
     parser = argparse.ArgumentParser()
-    parser.add_argument('--traintxt', default = '', 
+    parser.add_argument('--traintxt', default = 'C:\\Users\\Koren\\Git\\Yolo-FastestV2\\dataset\\train.txt', 
                         help='path to traintxt\n' )
     parser.add_argument('--output_dir', default = './', type = str, 
                         help='Output anchor directory\n' )  
-    parser.add_argument('--num_clusters', default = 6, type = int, 
+    parser.add_argument('--num_clusters', default = 10, type = int, 
                         help='number of clusters\n' )  
     
-    parser.add_argument('--input_width', default = 352, type = int, 
+    parser.add_argument('--input_width', default = 1024, type = int, 
                         help='model input width\n' )  
 
-    parser.add_argument('--input_height', default = 352, type = int, 
+    parser.add_argument('--input_height', default = 640, type = int, 
                         help='model input height\n' )  
    
     args = parser.parse_args()

@@ -296,8 +296,8 @@ def non_max_suppression(prediction, conf_thres=0.3, iou_thres=0.45, classes=None
     return output
 
 def make_grid(h, w, cfg, device):
-    hv, wv = torch.meshgrid([torch.arange(h), torch.arange(w)])
-    return torch.stack((wv, hv), 2).repeat(1,1,3).reshape(h, w, cfg["anchor_num"], -1).to(device)
+    hv, wv = torch.meshgrid([torch.arange(h), torch.arange(w)], indexing='ij')
+    return torch.stack((wv, hv), 2).repeat(1,1,cfg["anchor_num"]).reshape(h, w, cfg["anchor_num"], -1).to(device)
 
 #特征图后处理
 def handel_preds(preds, cfg, device):
@@ -393,4 +393,4 @@ def evaluation(val_dataloader, cfg, model, device, conf_thres = 0.01, nms_thresh
     true_positives, pred_scores, pred_labels = [np.concatenate(x, 0) for x in list(zip(*sample_metrics))]
     metrics_output = ap_per_class(true_positives, pred_scores, pred_labels, labels)
     
-    return metrics_output     
+    return metrics_output
